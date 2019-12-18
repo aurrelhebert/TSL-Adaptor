@@ -1,0 +1,84 @@
+// this block is necessary to make enforcedPlatform work for Quarkus plugin available
+// only locally (snapshot) that is also importing the Quarkus BOM
+buildscript {
+    repositories {
+        mavenLocal()
+    }
+    dependencies {
+        classpath "io.quarkus:quarkus-gradle-plugin:${quarkusPluginVersion}"
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+apply plugin: 'io.quarkus'
+
+repositories {
+     mavenLocal()
+     mavenCentral()
+     jcenter()
+
+     maven {
+        url 'https://dl.bintray.com/senx/maven'
+     }
+
+     maven {
+        url 'https://dl.bintray.com/hbs/maven'
+     }
+}
+
+
+final excludedModules = [
+        [ 'javax.activation', 'javax.activation-api' ],
+        [ 'javax.enterprise', 'cdi-api' ],
+        [ 'javax.servlet', 'servlet-api' ],
+        [ 'javax.inject', 'javax.inject' ],
+        [ 'javax.xml.bind', 'jaxb-api' ],
+]
+
+dependencies {
+    implementation 'io.warp10:warpscript:+'
+    implementation 'net.java.dev.jna:jna:+'
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+    implementation 'io.quarkus:quarkus-resteasy'
+    implementation group: 'org.influxdb', name: 'influxdb-java', version: '2.7'
+
+   // runtimeOnly 'javax.activation:javax.activation-api'
+   // runtimeOnly 'javax.enterprise:cdi-api'
+    //  runtimeOnly 'javax.inject:javax.inject'
+    //  runtimeOnly 'javax.servlet:servlet-api'
+    //   runtimeOnly 'javax.xml.bind:jaxb-api'
+
+    testImplementation 'io.quarkus:quarkus-junit5'
+    testImplementation 'io.rest-assured:rest-assured'
+    testCompile 'io.warp10:warpscript:+'
+
+    nativeTestImplementation 'io.quarkus:quarkus-junit5'
+    nativeTestImplementation 'io.rest-assured:rest-assured'
+}
+
+task buildUberJar(type: io.quarkus.gradle.tasks.QuarkusBuild, dependsOn: build) {
+    uberJar = true
+}
+
+group 'io.ovh.tsl'
+version '0.0.1-SNAPSHOT'
+
+compileJava {
+    options.compilerArgs << '-parameters'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+configurations {
+    [all, excludedModules].combinations { config, moduleToExclude ->
+        config.exclude group: moduleToExclude[0], module: moduleToExclude[1]
+    }
+}
+
+
