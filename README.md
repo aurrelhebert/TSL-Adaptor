@@ -95,10 +95,10 @@ curl --request POST \
 
 If you want to learn more of the TSL syntax, you can check the [query doc](https://github.com/ovh/tsl/blob/master/spec/doc.md).
 
-## Licence
+## License
 
 Agalon is released under a [3-BSD clause license](./LICENSE).
 
 ## Get in touch
 
-If you have any questions or want to share about TSL or Agalon, we will be to chat on [gitter]((https://gitter.im/ovh/metrics)).
+If you have any questions or want to share about TSL or Agalon, we will be happy to answer on our [gitter](https://gitter.im/ovh/tsl).
