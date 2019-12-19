@@ -2,6 +2,7 @@
 // only locally (snapshot) that is also importing the Quarkus BOM
 buildscript {
     repositories {
+        mavenCentral()
         mavenLocal()
     }
     dependencies {
