@@ -5,7 +5,7 @@ import java.util.Map;
 import io.warp10.warp.sdk.WarpScriptExtension;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-public class QuarkusWarpScriptExtension extends WarpScriptExtension {
+public class TSLAdaptorWarpScriptExtension extends WarpScriptExtension {
 
     private static final Map<String,Object> functions;
 

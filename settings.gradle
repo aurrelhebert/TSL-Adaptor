@@ -13,4 +13,4 @@ pluginManagement {
     }
 }
 
-rootProject.name='agalon'
+rootProject.name='tsl-adaptor'

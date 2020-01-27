@@ -49,8 +49,8 @@ public class ServeTSL {
             e.printStackTrace();
         }
 
-        // Load Agalon native extension JARs
-        WarpConfig.setProperty("warpscript.extensions", "io.ovh.tsl.QuarkusWarpScriptExtension");
+        // Load TSL-Adaptor native extension JARs
+        WarpConfig.setProperty("warpscript.extensions", "io.ovh.tsl.TSLAdaptorWarpScriptExtension");
 
         // Set all custom sources properties
         this.setExtensionParameters();
